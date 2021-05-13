@@ -1,8 +1,15 @@
 const Telegraf = require("telegraf");
-const bot = new Telegraf("1853133317:AAFh8rRWNVztKf_YGY_y7qQb5m9ZFhtPKRk");
+const keys = require("./keys");
+const bot = new Telegraf(keys.telegramKey);
 const { startMsg } = require(".//utils/message");
-const { startMarkup, indiaMarkup, stateMarkup } = require(".//utils/markup");
+const {
+  startMarkup,
+  indiaMarkup,
+  stateMarkup,
+  stateNameMarkup,
+} = require(".//utils/markup");
 const { default: axios } = require("axios");
+const { stateList } = require("./utils/states");
 
 bot.command("start", (ctx) => {
   ctx.telegram.sendMessage(ctx.chat.id, startMsg, {
@@ -36,6 +43,30 @@ bot.action("state", (ctx) => {
     reply_markup: {
       inline_keyboard: stateMarkup,
     },
+  });
+});
+
+bot.action(stateList, (ctx) => {
+  const selectedState = ctx.match;
+  axios.get("https://api.covid19india.org/data.json").then((data) => {
+    const stateData = data.data.statewise.find((val) => {
+      return val.state === selectedState;
+    });
+    let message = `
+State:  ${selectedState}\n
+Active Cases:  ${stateData.active}\n
+Confirmed Cases:  ${stateData.confirmed}\n
+Deaths:  ${stateData.deaths}\n
+Recovered:  ${stateData.recovered}\n
+New Cases : ${stateData.deltaconfirmed}\n
+Last Update :  ${stateData.lastupdatedtime}
+`;
+    ctx.deleteMessage();
+    ctx.telegram.sendMessage(ctx.chat.id, message, {
+      reply_markup: {
+        inline_keyboard: stateNameMarkup,
+      },
+    });
   });
 });
 

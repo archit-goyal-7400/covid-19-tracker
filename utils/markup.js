@@ -30,3 +30,8 @@ const stateMarkupCalc = () => {
 };
 
 exports.stateMarkup = stateMarkupCalc();
+
+exports.stateNameMarkup = [
+  [{ text: "Back to States", callback_data: "state" }],
+  [{ text: "Back to Start", callback_data: "start" }],
+];
