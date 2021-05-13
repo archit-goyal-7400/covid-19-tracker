@@ -1,15 +1,23 @@
 const Telegraf = require("telegraf");
 const keys = require("./keys");
 const bot = new Telegraf(keys.telegramKey);
-const { startMsg } = require(".//utils/message");
 const {
   startMarkup,
   indiaMarkup,
   stateMarkup,
   stateNameMarkup,
+  afterInfoMarkup,
+  botInfoMarkup,
 } = require(".//utils/markup");
 const { default: axios } = require("axios");
 const { stateList } = require("./utils/states");
+
+const startMsg = `
+Welcome to Covid-19 Tracker
+-India : Get all the information of covid-19 in India
+-State : Get all the information of of Covid-19 by state
+-Bot Info : Details about the bot
+`;
 
 bot.command("start", (ctx) => {
   ctx.telegram.sendMessage(ctx.chat.id, startMsg, {
@@ -67,6 +75,39 @@ Last Update :  ${stateData.lastupdatedtime}
         inline_keyboard: stateNameMarkup,
       },
     });
+  });
+});
+
+bot.action("bot-info", (ctx) => {
+  ctx.deleteMessage();
+  ctx.telegram.sendMessage(ctx.chat.id, "Bot Information", {
+    reply_markup: {
+      inline_keyboard: botInfoMarkup,
+    },
+  });
+});
+
+bot.action("credits", (ctx) => {
+  ctx.deleteMessage();
+  const message = `
+API used -  https://api.covid19india.org/data.json
+  `;
+  ctx.telegram.sendMessage(ctx.chat.id, message, {
+    reply_markup: {
+      inline_keyboard: afterInfoMarkup,
+    },
+  });
+});
+
+bot.action("dev", (ctx) => {
+  ctx.deleteMessage();
+  const message = `
+Developed By - Archit Goyal
+  `;
+  ctx.telegram.sendMessage(ctx.chat.id, message, {
+    reply_markup: {
+      inline_keyboard: afterInfoMarkup,
+    },
   });
 });
 

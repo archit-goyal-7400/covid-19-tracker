@@ -1,11 +1,7 @@
 exports.startMarkup = [
   [
     { text: "India", callback_data: "india" },
-    { text: "Global", callback_data: "global" },
-  ],
-  [
     { text: "State", callback_data: "state" },
-    { text: "Country", callback_data: "country" },
   ],
   [{ text: "Bot Info", callback_data: "bot-info" }],
 ];
@@ -33,5 +29,18 @@ exports.stateMarkup = stateMarkupCalc();
 
 exports.stateNameMarkup = [
   [{ text: "Back to States", callback_data: "state" }],
+  [{ text: "Back to Start", callback_data: "start" }],
+];
+
+exports.botInfoMarkup = [
+  [
+    { text: "Credits", callback_data: "credits" },
+    { text: "Developer", callback_data: "dev" },
+  ],
+  [{ text: "Back to Start", callback_data: "start" }],
+];
+
+exports.afterInfoMarkup = [
+  [{ text: "Bot Info", callback_data: "bot-info" }],
   [{ text: "Back to Start", callback_data: "start" }],
 ];
