@@ -1,8 +1,15 @@
-const { Composer } = require("micro-bot");
+// const { Composer } = require("micro-bot");
 const Telegraf = require("telegraf");
 const keys = require("./utils/keys");
-// const bot = new Telegraf(keys.telegramKey);
-const bot = new Composer();
+const bot = new Telegraf(keys.telegramKey);
+const port = process.env.PORT || 3000;
+expressApp.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+expressApp.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+// const bot = new Composer();
 const {
   startMarkup,
   indiaMarkup,
@@ -123,4 +130,5 @@ bot.action("start", (ctx) => {
 });
 
 // bot.launch();
-module.exports = bot;
+bot.startPolling();
+// module.exports = bot;
