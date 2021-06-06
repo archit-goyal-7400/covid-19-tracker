@@ -1,1 +1,1 @@
-exports.telegrafKey = process.env.TELEGRAF_KEY;
+exports.telegramKey = process.env.TELEGRAF_KEY;
