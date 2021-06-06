@@ -1,5 +1,5 @@
 const Telegraf = require("telegraf");
-const keys = require("./keys");
+const keys = require("./utils/keys");
 const bot = new Telegraf(keys.telegramKey);
 const {
   startMarkup,
