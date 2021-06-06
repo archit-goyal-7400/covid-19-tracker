@@ -1,6 +1,8 @@
+const { Composer } = require("micro-bot");
 const Telegraf = require("telegraf");
 const keys = require("./utils/keys");
-const bot = new Telegraf(keys.telegramKey);
+// const bot = new Telegraf(keys.telegramKey);
+const bot = new Composer();
 const {
   startMarkup,
   indiaMarkup,
@@ -8,7 +10,7 @@ const {
   stateNameMarkup,
   afterInfoMarkup,
   botInfoMarkup,
-} = require(".//utils/markup");
+} = require("./utils/markup");
 const { default: axios } = require("axios");
 const { stateList } = require("./utils/states");
 
@@ -120,4 +122,5 @@ bot.action("start", (ctx) => {
   });
 });
 
-bot.launch();
+// bot.launch();
+module.exports = bot;
